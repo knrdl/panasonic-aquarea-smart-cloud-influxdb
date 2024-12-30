@@ -37,7 +37,7 @@ def write_current_status(status):
         if status[field] is not None:
             points.append(
                 Point("heatpump").field(
-                    field.replace("deiceStatus", "deviceStatus"), status[field]
+                    field.replace("deiceStatus", "deviceStatus"), float(status[field])
                 )
             )
 
@@ -51,7 +51,7 @@ def write_current_status(status):
         ]:
             if tank[field] is not None:
                 points.append(
-                    Point("heatpump").field(f"tank_{i+1}_{field}", tank[field])
+                    Point("heatpump").field(f"tank_{i+1}_{field}", float(tank[field]))
                 )
 
     for zone in status["zoneStatus"]:
@@ -72,7 +72,7 @@ def write_current_status(status):
             if zone[field] is not None:
                 points.append(
                     Point("heatpump").field(
-                        f"zone_{zone['zoneId']}_{field}", zone[field]
+                        f"zone_{zone['zoneId']}_{field}", float(zone[field])
                     )
                 )
 
@@ -93,7 +93,7 @@ def write_consumption_data(consumption, date: str):
                     )
                     points.append(
                         Point("heatpump")
-                        .field(f"{dataset_name}_{record_name}", hour_value)
+                        .field(f"{dataset_name}_{record_name}", float(hour_value))
                         .time(ts)
                     )
 
